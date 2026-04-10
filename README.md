@@ -22,15 +22,27 @@ After that, the `ticktick` command is available in your terminal.
 
 ## Authentication
 
-OAuth (PKCE) is the recommended way—no client secret required:
+The CLI supports two authentication methods: OAuth PKCE (recommended) and manual Token.
+
+### OAuth PKCE (Recommended)
+
+OAuth (PKCE) is the recommended way—no client secret required. It opens a browser for TickTick authorization.
 
 ```bash
 ticktick auth login
 ```
 
-Your browser will open for TickTick authorization.
+### Token (Headless Environments)
 
-Auth subcommands (OAuth login is recommended; use the token method when browser auth is unavailable):
+If the environment is headless (no browser available) or you cannot use browser-based OAuth, you can log in via an access token directly.
+
+**Getting a Token**: Log in to the TickTick web app, click your avatar in the top-left corner, and go to Settings > Account > API Token to create and copy a token.
+
+```bash
+ticktick auth token <token>
+```
+
+### Auth subcommands
 
 ```bash
 ticktick auth login           # OAuth browser login (recommended)
@@ -38,8 +50,6 @@ ticktick auth token <token>   # set access token directly (for headless environm
 ticktick auth status          # see if you are logged in
 ticktick auth logout          # clear the stored token
 ```
-
-**Getting a Token**: Log in to the TickTick web app, click your avatar in the top-left corner, and go to Settings > Account > API Token to create and copy a token.
 
 ## Commands
 
@@ -253,6 +263,10 @@ Maps to **`task filter`** options (`POST /task/filter`):
 ### `task move` body
 
 Each repetition of **`--from`**, **`--to`**, and **`--task`** (same count) becomes one object with `fromProjectId`, `toProjectId`, and `taskId`. The API allows an optional `sortOrder` in the destination list; the CLI does not set it.
+
+## For AI Agents
+
+Instructions and skill definitions for AI agents using this CLI can be found in [skills/SKILL.md](./skills/SKILL.md).
 
 ## Development
 
